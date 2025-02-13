@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Exercise 1</title>
+        <script src="https://unpkg.com/vue@3.4.0"></script>
+    </head>
+    <body>
+        <div id="app">
+            <div>{{ !over ? 'Next Question' : 'You scrore is : ' + score}}</div>
+            <div>{{over ? '' : question }}</div>
+            <input type="text" class="answer" v-model="answer" />
+        </div>
+    </body>
+    <script>
+        const { createApp, ref, computed } = Vue;
+        const App = {
+            setup() {
+                const qa_array = ref([
+                    ["What is your life ?", "My honor is my life"],
+                    ["What is your fate ?", "My duty is my fate"],
+                    ["What is your fear ?", "My fear is to fail"],
+                    ["What is your reward ?", "My salvation is my reward"],
+                    ["What is your craft ?", "My craft is death"],
+                    ["What is your pledge ?", "My pledge is Eternal SERVICE"],
+                ]);
+
+                let index = ref(0);
+                const score = ref(0);
+
+                const question = computed(() => {
+                    return qa_array.value[index.value][0];
+                });
+                const answer = ref(null);
+
+                const isRight = computed(() => {
+                    return answer.value === qa_array.value[index.value][1]
+                        ? true
+                        : false;
+                });
+
+                const over = computed(() => {
+                    return index.value == qa_array.value.length - 1
+                        ? true
+                        : false;
+                });
+
+                const loop = setInterval(() => {
+                    if (over.value) {
+                        clearInterval(loop);
+                    } else {
+                        if (isRight.value) {
+                            score.value++;
+                        }
+
+                        index.value++;
+                        answer.value = "";
+                    }
+                }, 2000);
+
+                return {
+                    question,
+                    answer,
+                    score,
+                    over,
+                };
+            },
+        };
+
+        createApp(App).mount("#app");
+    </script>
+</html>
