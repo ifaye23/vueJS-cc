@@ -25,6 +25,10 @@
 
     <body>
         <div id="app">
+            <div>
+                <label for="age">Enter your age : </label>
+                <input type="text" name="age" id="age" v-model="age" />
+            </div>
             <div>{{message}}</div>
             <div>
                 Can you drive :
@@ -54,6 +58,7 @@
                     return {
                         message,
                         canDrive,
+                        age,
                     };
                 },
             };
