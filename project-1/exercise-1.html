@@ -8,7 +8,8 @@
     </head>
     <body>
         <div id="app">
-            <div>{{ !over ? 'Next Question' : 'You scrore is : ' + score}}</div>
+            <h2>Your current score is : {{score}}</h2>
+            <div>{{ !over ? 'Next Question' : 'You score is : ' + score}}</div>
             <div>{{over ? '' : question }}</div>
             <input type="text" class="answer" v-model="answer" />
         </div>
@@ -57,7 +58,7 @@
                         index.value++;
                         answer.value = "";
                     }
-                }, 2000);
+                }, 7000);
 
                 return {
                     question,
