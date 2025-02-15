@@ -105,7 +105,14 @@
         </div>
 
         <script>
-            const { createApp, onMounted, onBeforeMount, ref, watch } = Vue;
+            const {
+                createApp,
+                onMounted,
+                onBeforeMount,
+                ref,
+                watch,
+                watchEffect,
+            } = Vue;
 
             const App = {
                 setup() {
@@ -113,6 +120,24 @@
                     const newTaskInput = ref(null);
                     const newDescription = ref("");
                     const newPriority = ref("");
+
+                    // non lazy watching
+                    // watch(
+                    //     newDescription,
+                    //     (newVal, oldVal) => {
+                    //         console.log(
+                    //             `New value is ${newVal}, Old value is ${oldVal}`
+                    //         );
+                    //     },
+                    //     { immediate: true }
+                    // );
+
+                    // watchEffect : no need to specify what's being watched
+                    watchEffect(() => {
+                        console.log(
+                            `New task input value is ${newDescription.value}`
+                        );
+                    });
 
                     const tasks = ref([
                         {
@@ -135,6 +160,7 @@
                         },
                     ]);
 
+                    // this is lazy watching meaning triggers only on change
                     watch(
                         tasks,
                         () => {
