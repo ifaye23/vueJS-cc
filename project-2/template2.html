@@ -61,14 +61,17 @@
         <div id="app">
             <!-- Form for Adding Photos -->
             <form @submit.prevent="addPhoto">
-                <input placeholder="Enter image URL" />
+                <input v-model="newPhotoUrl" placeholder="Enter image URL" />
                 <button type="submit">Add Photo</button>
             </form>
 
             <!-- Conditional Rendering -->
-            <p class="no-photos">No photos added yet. Add some!</p>
+            <p v-if="photos.length===0" class="no-photos">
+                No photos added yet. Add some!
+            </p>
 
-            <div class="gallery">
+            <!-- v-else must immediately follow a v-if element -->
+            <div class="gallery" v-else>
                 <!-- List Rendering and Conditional Class Binding -->
                 <div class="photo">
                     <!-- An image goes here -->
@@ -82,9 +85,21 @@
             const App = {
                 setup() {
                     // Keep track of the list of photos
+                    const photos = ref([]);
                     // We need a ref for the currently entered URL
+                    const newPhotoUrl = ref(null);
                     const addPhoto = () => {
                         console.log("The form was submitted");
+                        // this is an object to hold the data
+                        const photo = {
+                            id: photos.value.length + 1,
+                            url: newPhotoUrl.value,
+                            isFavorite: false,
+                        };
+                        if (newPhotoUrl.value.trim) {
+                            photos.value.push(photo);
+                            newPhotoUrl.value = "";
+                        }
                     };
                     const toggleFavorite = () => {
                         // Favorite toggling logic
@@ -92,6 +107,8 @@
 
                     return {
                         addPhoto,
+                        photos,
+                        newPhotoUrl,
                     };
                 },
             };
