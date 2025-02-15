@@ -1,5 +1,6 @@
 <script setup>
-import EventCard from './components/EventCard.vue';
+import BookingCard from '@/components/BookingCard.vue';
+import EventCard from '@/components/EventCard.vue';
 </script>
 
 <template>
@@ -16,5 +17,10 @@ import EventCard from './components/EventCard.vue';
                 @book="console.log('This event has been registered')"/>
         </section>
     <h2 class="text-2xl font-medium">Your Bookings</h2>
+        <section class="flex flex-col gap-5">
+            <BookingCard v-for="i in 3" :key="i" @cancel="console.log('The booking has been canceled')">
+                This is a test
+            </BookingCard>
+        </section>
   </main>
 </template>
