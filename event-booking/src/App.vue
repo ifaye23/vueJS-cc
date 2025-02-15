@@ -13,7 +13,7 @@ import EventCard from './components/EventCard.vue';
                 title="Boombox Master" 
                 date="29-06-2003" 
                 description="Welcome to the DJs"
-                @click="console.log('This event has been registered')"/>
+                @book="console.log('This event has been registered')"/>
         </section>
     <h2 class="text-2xl font-medium">Your Bookings</h2>
   </main>

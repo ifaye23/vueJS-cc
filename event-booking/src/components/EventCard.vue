@@ -4,14 +4,16 @@
         <p class="border-b border-amber-600 p-4 text-sky-400">{{date}}</p>
         <p class="p-4 text-lime-200 border-b border-amber-600">{{description}}</p>
         <section class="flex justify-end p-4">
-            <BookButton label="Book Event !"/>
+            <BookButton @click="$emit('book')">
+                Book Event !
+            </BookButton>
         </section>
     </div>
 </template>
 
 <script setup>
     import BookButton from '@/components/BookButton.vue';
-
+    defineEmits(['book'])
     defineProps({
         title: String,
         date: String,
