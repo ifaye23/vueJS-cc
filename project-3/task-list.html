@@ -56,10 +56,13 @@
 
     <body>
         <div id="app">
-            <form>
+            <form @submit.prevent="addTask">
                 <!-- Adding tasks form -->
-                <input ref="newTaskInput" placeholder="Add new task" />
-                <select>
+                <input
+                    ref="newTaskInput"
+                    placeholder="Add new task"
+                    v-model="newDescription" />
+                <select v-model="newPriority">
                     <option disabled value="">Select priority</option>
                     <option>High</option>
                     <option>Medium</option>
@@ -108,6 +111,9 @@
                 setup() {
                     // This is to access the DOM element with the same ref name
                     const newTaskInput = ref(null);
+                    const newDescription = ref("");
+                    const newPriority = ref("");
+
                     const tasks = ref([
                         {
                             id: 1,
@@ -134,12 +140,28 @@
                         newTaskInput.value.focus();
                     });
 
-                    onBeforeMount(() => {
-                        console.log("The DOM element hasnt been mounted yet");
-                    });
+                    const addTask = () => {
+                        if (
+                            newDescription.value.trim() &&
+                            newPriority.value.trim()
+                        ) {
+                            tasks.value.unshift({
+                                id: tasks.value.length + 1,
+                                description: newDescription.value,
+                                priority: newPriority.value,
+                                done: false,
+                            });
+                            newDescription.value = "";
+                            newPriority.value = "";
+                        }
+                    };
+
                     return {
                         newTaskInput,
                         tasks,
+                        newDescription,
+                        newPriority,
+                        addTask,
                     };
                 },
             };
