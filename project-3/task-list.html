@@ -72,21 +72,28 @@
             <input placeholder="Filter tasks..." />
 
             <!-- If there no tasks -->
-            <div>
+            <div v-if="tasks.length === 0">
                 <p>
                     No tasks found. Try changing the filter or add some tasks!
                 </p>
             </div>
 
-            <div>
+            <div v-else>
                 <h3>Your Tasks</h3>
                 <!-- This is a list of tasks -->
-                <div>
+                <div
+                    v-for="task in tasks"
+                    :key="task.id"
+                    :class="{
+                        'task' : true,
+                        'completed' : task.done,
+                        [task.priority.toLowerCase()]: true,
+                    }">
                     <div>
                         <!-- Is task done? -->
-                        <input type="checkbox" />
+                        <input type="checkbox" v-model="task.done" />
                         <!-- Task description -->
-                        <span></span>
+                        <span> {{ task.description }} </span>
                     </div>
                     <!-- Removing a task -->
                     <button class="remove-button">✖</button>
@@ -101,6 +108,26 @@
                 setup() {
                     // This is to access the DOM element with the same ref name
                     const newTaskInput = ref(null);
+                    const tasks = ref([
+                        {
+                            id: 1,
+                            description: "Buy groceries",
+                            priority: "High",
+                            done: true,
+                        },
+                        {
+                            id: 2,
+                            description: "Get a haircut",
+                            priority: "Medium",
+                            done: false,
+                        },
+                        {
+                            id: 3,
+                            description: "Go to the bank",
+                            priority: "Low",
+                            done: false,
+                        },
+                    ]);
 
                     onMounted(() => {
                         // to focus on the element at mount
@@ -112,6 +139,7 @@
                     });
                     return {
                         newTaskInput,
+                        tasks,
                     };
                 },
             };
