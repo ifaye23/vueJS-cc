@@ -1,19 +1,16 @@
 <template>
-  <DefaultCard class="flex flex-row justify-between px-4 py-3 items-center">
-    <section>
-      <slot></slot>
-    </section>
-    <section>
-      <BaseButton class="bg-red-500 hover:bg-rose-600" @click="$emit('cancel')">
-        Cancel
-      </BaseButton>
-    </section>
-  </DefaultCard>
+  <SectionnedCard>
+    <div class="flex flex-row justify-between items-center">
+      <p>This is some dummy text</p>
+      <BaseButton class="bg-red-500 hover:bg-red-600">Cancel</BaseButton>
+    </div>
+  </SectionnedCard>
 </template>
 
 <script setup>
-import DefaultCard from '@/components/BaseCard.vue';
+import SectionnedCard from '@/components/SectionCard.vue';
 import BaseButton from '@/components/BaseButton.vue';
+// import BaseButton from '@/components/BaseButton.vue';
 
 defineEmits(['cancel']);
 </script>

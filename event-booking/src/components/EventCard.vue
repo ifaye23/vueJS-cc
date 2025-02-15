@@ -2,16 +2,20 @@
   <SectionnedCard>
     <template #header>{{ title }}</template>
     <template #date>{{ date }}</template>
-    <template #description>{{ description }} </template>
-    <template #book>
-      <BaseButton>Book Event !</BaseButton>
+    <template #default>
+      <p class="text-lime-200 pb-4">
+        {{ description }}
+      </p>
+      <section class="flex flex-row justify-end">
+        <BaseButton class="bg-orange-600 hover:bg-orange-700">Book Event !</BaseButton>
+      </section>
     </template>
   </SectionnedCard>
 </template>
 
 <script setup>
 import BaseButton from '@/components/BaseButton.vue';
-import SectionnedCard from './SectionnedCard.vue';
+import SectionnedCard from './SectionCard.vue';
 defineEmits(['book']);
 defineProps({
   title: String,

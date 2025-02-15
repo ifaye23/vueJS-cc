@@ -20,7 +20,6 @@ import EventCard from '@/components/EventCard.vue';
     <h2 class="text-2xl font-medium">Your Bookings</h2>
     <section class="flex flex-col gap-5">
       <BookingCard v-for="i in 3" :key="i" @cancel="console.log('The booking has been canceled')">
-        This is a test
       </BookingCard>
     </section>
   </main>
