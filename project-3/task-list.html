@@ -50,6 +50,10 @@
                 background: none;
                 font-size: 16px;
             }
+
+            .filtered {
+                display: none;
+            }
         </style>
         <script src="https://unpkg.com/vue@3.4.0"></script>
     </head>
@@ -72,7 +76,7 @@
             </form>
 
             <!-- Task filtering -->
-            <input placeholder="Filter tasks..." />
+            <input placeholder="Filter tasks..." v-model="filterInput" />
 
             <!-- If there no tasks -->
             <div v-if="tasks.length === 0">
@@ -85,9 +89,10 @@
                 <h3>Your Tasks</h3>
                 <!-- This is a list of tasks -->
                 <div
-                    v-for="task in tasks"
+                    v-for="(task, index) in tasks"
                     :key="task.id"
                     :class="{
+                        'filtered' : task.filtered,
                         'task' : true,
                         'completed' : task.done,
                         [task.priority.toLowerCase()]: true,
@@ -99,7 +104,9 @@
                         <span> {{ task.description }} </span>
                     </div>
                     <!-- Removing a task -->
-                    <button class="remove-button">✖</button>
+                    <button class="remove-button" @click="removeTask(index)">
+                        ✖
+                    </button>
                 </div>
             </div>
         </div>
@@ -120,6 +127,7 @@
                     const newTaskInput = ref(null);
                     const newDescription = ref("");
                     const newPriority = ref("");
+                    const filterInput = ref("");
 
                     // non lazy watching
                     // watch(
@@ -142,6 +150,30 @@
                     const tasks = ref(
                         JSON.parse(localStorage.getItem("tasks") ?? "[]")
                     );
+
+                    // implementing task removal
+                    const removeTask = (index) => {
+                        tasks.value.splice(index, 1);
+                    };
+
+                    // implementing filtering
+                    // we need to watch for the filter input
+                    watchEffect(() => {
+                        if (filterInput.value.trim()) {
+                            tasks.value.forEach((task) => {
+                                task.filtered = !task.description
+                                    .trim()
+                                    .toLowerCase()
+                                    .includes(
+                                        filterInput.value.trim().toLowerCase()
+                                    );
+                            });
+                        } else {
+                            tasks.value.forEach(
+                                (task) => (task.filtered = false)
+                            ); // Reset all tasks if input is empty
+                        }
+                    });
 
                     // this is lazy watching meaning triggers only on change
                     watch(
@@ -170,6 +202,7 @@
                                 description: newDescription.value,
                                 priority: newPriority.value,
                                 done: false,
+                                filtered: false,
                             });
                             newDescription.value = "";
                             newPriority.value = "";
@@ -181,7 +214,9 @@
                         tasks,
                         newDescription,
                         newPriority,
+                        filterInput,
                         addTask,
+                        removeTask,
                     };
                 },
             };
