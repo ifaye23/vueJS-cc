@@ -95,10 +95,17 @@
         </div>
 
         <script>
-            const { createApp } = Vue;
+            const { createApp, onMounted, onBeforeMount } = Vue;
 
             const App = {
                 setup() {
+                    onMounted(() => {
+                        console.log("The DOM element has been mounted");
+                    });
+
+                    onBeforeMount(() => {
+                        console.log("The DOM element hasnt been mounted yet");
+                    });
                     return {};
                 },
             };
