@@ -79,13 +79,16 @@
                     :key="photo.id">
                     <!-- An image goes here -->
                     <!-- binding a value to an attribute -->
-                    <img :src="photo.url" alt="photo.id" />
+                    <img
+                        :src="photo.url"
+                        alt="photo.id"
+                        @click="removePhoto(index)" />
                     <button
-                        :class="{'favorite-button.active' : photo.isFavorite, 'favorite-button' : !photo.isFavorite}"
+                        class="favorite-button"
+                        :class="{'active' : photo.isFavorite}"
                         @click="toggleFavorite(photo)">
                         ★
                     </button>
-                    <button @click="removePhoto(index)">Remove</button>
                 </div>
             </div>
         </div>
@@ -95,11 +98,27 @@
             const App = {
                 setup() {
                     // Keep track of the list of photos
-                    const photos = ref([]);
+                    const photos = ref([
+                        {
+                            id: 1,
+                            url: "https://plus.unsplash.com/premium_photo-1691854353831-bcc01370de49?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8NGt8ZW58MHwxfDB8fHww",
+                            isFavorite: false,
+                        },
+                        {
+                            id: 2,
+                            url: "https://images.unsplash.com/photo-1718704164898-15ec0a5aebfe?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fDRrfGVufDB8MXwwfHx8MA%3D%3D",
+                            isFavorite: false,
+                        },
+                        {
+                            id: 3,
+                            url: "https://images.unsplash.com/photo-1738602867971-d111f1a54c80?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fDRrfGVufDB8MXwwfHx8MA%3D%3D",
+                            isFavorite: false,
+                        },
+                    ]);
                     // We need a ref for the currently entered URL
                     const newPhotoUrl = ref(null);
                     const addPhoto = () => {
-                        console.log("The form was submitted");
+                        // console.log("The form was submitted");
                         // this is an object to hold the data
                         const photo = {
                             id: photos.value.length + 1,
@@ -113,6 +132,7 @@
                     };
                     const toggleFavorite = (photo) => {
                         photo.isFavorite = !photo.isFavorite;
+                        console.log(photo);
                     };
                     const removePhoto = (index) => {
                         photos.value.splice(index, 1);
