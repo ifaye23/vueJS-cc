@@ -133,38 +133,24 @@
                     // );
 
                     // watchEffect : no need to specify what's being watched
-                    watchEffect(() => {
-                        console.log(
-                            `New task input value is ${newDescription.value}`
-                        );
-                    });
+                    // watchEffect(() => {
+                    //     console.log(
+                    //         `New task input value is ${newDescription.value}`
+                    //     );
+                    // });
 
-                    const tasks = ref([
-                        {
-                            id: 1,
-                            description: "Buy groceries",
-                            priority: "High",
-                            done: true,
-                        },
-                        {
-                            id: 2,
-                            description: "Get a haircut",
-                            priority: "Medium",
-                            done: false,
-                        },
-                        {
-                            id: 3,
-                            description: "Go to the bank",
-                            priority: "Low",
-                            done: false,
-                        },
-                    ]);
+                    const tasks = ref(
+                        JSON.parse(localStorage.getItem("tasks") ?? "[]")
+                    );
 
                     // this is lazy watching meaning triggers only on change
                     watch(
                         tasks,
                         () => {
-                            console.log("Tasks has changed");
+                            localStorage.setItem(
+                                "tasks",
+                                JSON.stringify(tasks.value)
+                            );
                         },
                         { deep: true }
                     );
