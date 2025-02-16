@@ -2,7 +2,7 @@
   <SectionnedCard>
     <div class="flex flex-row justify-between items-center">
       <p>This is some dummy text</p>
-      <BaseButton class="bg-red-500 hover:bg-red-600">Cancel</BaseButton>
+      <BaseButton variant="danger">Cancel</BaseButton>
     </div>
   </SectionnedCard>
 </template>

@@ -7,7 +7,7 @@
         {{ description }}
       </p>
       <section class="flex flex-row justify-end">
-        <BaseButton class="bg-orange-600 hover:bg-orange-700">Book Event !</BaseButton>
+        <BaseButton>Book Event !</BaseButton>
       </section>
     </template>
   </SectionnedCard>
