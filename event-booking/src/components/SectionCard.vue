@@ -6,7 +6,7 @@
     <div v-if="$slots.date" class="p-4 text-sky-400 border-b border-amber-600">
       <slot name="date"></slot>
     </div>
-    <div class="p-4">
+    <div class="p-4 text-sm">
       <slot></slot>
     </div>
   </BaseCard>
