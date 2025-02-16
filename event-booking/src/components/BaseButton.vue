@@ -13,7 +13,7 @@
 <script setup>
 const variants = {
   danger: 'bg-red-500 hover:bg-red-600',
-  default: 'bg-orange-500 hover:bg-orange-600',
+  default: 'bg-orange-600 hover:bg-orange-700',
 };
 
 defineProps({

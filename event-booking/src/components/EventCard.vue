@@ -7,7 +7,7 @@
         {{ description }}
       </p>
       <section class="flex flex-row justify-end">
-        <BaseButton>Book Event !</BaseButton>
+        <BaseButton @click="$emit('book')">Book Event !</BaseButton>
       </section>
     </template>
   </SectionnedCard>
