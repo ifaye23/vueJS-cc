@@ -38,48 +38,6 @@
       "status": "confirmed"
     },
     {
-      "id": "1739721266201",
-      "userId": 1,
-      "eventId": "3",
-      "eventTitle": "PHP Conference 2022",
-      "status": "confirmed"
-    },
-    {
-      "id": "1739721281333",
-      "userId": 1,
-      "eventId": "4",
-      "eventTitle": "Rust Conference 2021",
-      "status": "confirmed"
-    },
-    {
-      "id": "1739721318825",
-      "userId": 1,
-      "eventId": "1",
-      "eventTitle": "Rails Conference 2024",
-      "status": "confirmed"
-    },
-    {
-      "id": "1739721321504",
-      "userId": 1,
-      "eventId": "3",
-      "eventTitle": "PHP Conference 2022",
-      "status": "confirmed"
-    },
-    {
-      "id": "1739721451906",
-      "userId": 1,
-      "eventId": "3",
-      "eventTitle": "PHP Conference 2022",
-      "status": "confirmed"
-    },
-    {
-      "id": "1739721453757",
-      "userId": 1,
-      "eventId": "4",
-      "eventTitle": "Rust Conference 2021",
-      "status": "confirmed"
-    },
-    {
       "id": "1739724037155",
       "userId": 1,
       "eventId": "3",
