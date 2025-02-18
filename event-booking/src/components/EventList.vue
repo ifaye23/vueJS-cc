@@ -1,6 +1,6 @@
 <template>
   <h2 class="text-2xl font-medium">All Events</h2>
-  <section class="grid grid-cols-2 gap-8">
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <template v-if="error">
       <EmptyState class="flex justify-center gap-4 items-center">
         <p>Error loading events, try again</p>
