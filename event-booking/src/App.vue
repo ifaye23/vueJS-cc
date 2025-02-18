@@ -25,7 +25,7 @@
           :key="book.id"
           :eventTitle="book.eventTitle"
           :status="book.status"
-          @cancel="console.log('The booking has been canceled')"
+          @cancel="cancelBooking(book.id)"
         >
         </BookingCard>
       </template>
@@ -48,6 +48,8 @@ const isLoadingEvent = ref(false);
 const isLoadingBooking = ref(false);
 
 const bookings = ref([]);
+
+const getBookingById = (id) => bookings.value.findIndex((book) => book.id === id);
 
 const addBooking = async (event) => {
   const newBooking = {
@@ -76,16 +78,35 @@ const addBooking = async (event) => {
       body: JSON.stringify({ ...newBooking, status: 'confirmed' }),
     });
     if (response.ok) {
-      const index = bookings.value.findIndex((book) => book.id === newBooking.id);
+      const index = getBookingById(newBooking.id);
       if (index !== -1) bookings.value[index].status = 'confirmed';
     } else {
       throw new Error('Failed to confirm booking');
     }
   } catch (error) {
     // handle error
-    const index = bookings.value.findIndex((book) => book.id === newBooking.id);
+    const index = getBookingById(newBooking.id);
     if (index !== -1) bookings.value[index].status = 'failed';
     console.error(`An error has occurred : ${error}`);
+  }
+};
+
+const cancelBooking = async (id) => {
+  const index = getBookingById(id);
+  console.log(index);
+  const bookingToCancel = bookings.value[index];
+  bookings.value.splice(index, 1);
+
+  try {
+    const response = await fetch(`http://localhost:3001/bookings/${id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error('Failed to cancel booking !');
+    }
+  } catch (error) {
+    console.error(`An error has occured : ${error}`);
+    bookings.value.splice(index, 0, bookingToCancel);
   }
 };
 

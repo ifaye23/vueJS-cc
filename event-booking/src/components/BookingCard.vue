@@ -65,7 +65,7 @@
           </g>
         </svg>
       </div>
-      <BaseButton variant="danger">Cancel</BaseButton>
+      <BaseButton variant="danger" @click="$emit('cancel')">Cancel</BaseButton>
     </div>
   </SectionnedCard>
 </template>
