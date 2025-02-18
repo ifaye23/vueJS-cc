@@ -34,7 +34,6 @@ import LoadingBookingCard from '@/components/LoadingBookingCard.vue';
 import EmptyState from '@/components/EmptyState.vue';
 
 const isLoadingBooking = ref(false);
-
 const bookings = ref([]);
 
 const getBookingById = (id) => bookings.value.findIndex((book) => book.id === id);
