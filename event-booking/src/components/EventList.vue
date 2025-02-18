@@ -2,14 +2,19 @@
   <h2 class="text-2xl font-medium">All Events</h2>
   <section class="grid grid-cols-2 gap-8">
     <template v-if="!loading">
-      <EventCard
-        v-for="event in events"
-        :key="event.id"
-        :title="event.title"
-        :date="event.date"
-        :description="event.description"
-        @book="$emit('book', event)"
-      />
+      <template v-if="events.length">
+        <EventCard
+          v-for="event in events"
+          :key="event.id"
+          :title="event.title"
+          :date="event.date"
+          :description="event.description"
+          @book="$emit('book', event)"
+        />
+      </template>
+      <template v-else>
+        <EmptyState>No events yet...</EmptyState>
+      </template>
     </template>
     <template v-else>
       <LoadingEventCard v-for="i in 4" :key="i" />
@@ -21,6 +26,7 @@
 import { ref, onMounted } from 'vue';
 import EventCard from '@/components/EventCard.vue';
 import LoadingEventCard from '@/components/LoadingEventCard.vue';
+import EmptyState from '@/components/EmptyState.vue';
 
 defineEmits(['book']);
 
