@@ -21,7 +21,7 @@
             :title="event.title"
             :date="event.date"
             :description="event.description"
-            @book="$emit('book', event)"
+            @book="addBooking(event)"
           />
         </template>
         <template v-else>
@@ -41,8 +41,9 @@ import { RefreshCcw } from 'lucide-vue-next';
 import EventCard from '@/components/EventCard.vue';
 import LoadingEventCard from '@/components/LoadingEventCard.vue';
 import EmptyState from '@/components/EmptyState.vue';
+import useBookings from '@/composables/useBookings';
 
-defineEmits(['book']);
+const { addBooking } = useBookings();
 
 const events = ref([]);
 const loading = ref(false);
