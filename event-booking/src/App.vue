@@ -94,6 +94,7 @@ const cancelBooking = async (id) => {
   } catch (error) {
     console.error(`An error has occured : ${error}`);
     bookings.value.splice(index, 0, bookingToCancel);
+    bookings.value[index].status = 'failed';
   }
 };
 
