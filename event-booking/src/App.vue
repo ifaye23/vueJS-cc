@@ -4,7 +4,7 @@
     <EventList @book="addBooking($event)" />
     <h2 class="text-2xl font-medium">Your Bookings</h2>
     <section class="flex flex-col gap-5">
-      <template v-if="!isLoadingBooking">
+      <template v-if="!loading">
         <template v-if="bookings.length">
           <BookingCard
             v-for="book in bookings"
@@ -27,14 +27,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import BookingCard from '@/components/BookingCard.vue';
 import EventList from '@/components/EventList.vue';
 import LoadingBookingCard from '@/components/LoadingBookingCard.vue';
 import EmptyState from '@/components/EmptyState.vue';
+import useBookings from '@/composables/useBookings.js';
 
-const isLoadingBooking = ref(false);
-const bookings = ref([]);
+const { loading, bookings, fetchBookings } = useBookings();
 
 const getBookingById = (id) => bookings.value.findIndex((book) => book.id === id);
 
@@ -95,17 +95,6 @@ const cancelBooking = async (id) => {
     console.error(`An error has occured : ${error}`);
     bookings.value.splice(index, 0, bookingToCancel);
     bookings.value[index].status = 'failed';
-  }
-};
-
-const fetchBookings = async () => {
-  isLoadingBooking.value = true;
-  try {
-    const response = await fetch('http://localhost:3001/bookings');
-    bookings.value = await response.json();
-    bookings.value.reverse();
-  } finally {
-    isLoadingBooking.value = false;
   }
 };
 
