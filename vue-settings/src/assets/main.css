@@ -1,1 +1,20 @@
 @import 'tailwindcss';
+
+* {
+  box-sizing: border-box;
+}
+
+input[type='text'],
+input[type='email'],
+textarea {
+  @apply bg-neutral-800 p-2.5 flex-1 rounded-sm;
+  @apply text-[95%];
+}
+
+input[type='radio'] {
+  @apply accent-neutral-600;
+}
+
+.f-input {
+  @apply flex flex-col gap-1.5;
+}
