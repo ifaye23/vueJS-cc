@@ -1,10 +1,10 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 interface GeneralData {
     id: string;
     email: string;
     log: string;
-    type: 'Regular Bot' | 'Armed Seeker' | 'Triple Changer' | '';
+    type: 'rbot' | 'aseeker' | 'tchanger' | '';
     faction: 'Select' | 'Autobot' | 'Decepticon' | 'Mercenary' | 'Civilian'
 }
 
@@ -19,14 +19,25 @@ interface PrivacyData {
     visibility : 'Private' | 'Public'
 }
 
-const general = ref<GeneralData>({
-    id: '',
-    email: '',
-    log: '',
-    type: '',
-    faction: 'Select'
+const general = ref<GeneralData>(
+    (() => {
+        const stored = localStorage.getItem('general');
 
-})
+        return stored !== null
+        ? JSON.parse(stored)
+        : {
+            id: '',
+            email: '',
+            log: 'Resident of Iacon',
+            type: 'rbot',
+            faction: 'Civilian'
+            };
+    })()
+)
+
+watch(general, (value) => {
+    localStorage.setItem('general', JSON.stringify(value))
+}, {deep: true})
 
 const notifs = ref<NotifsData>({
     symlink: true,

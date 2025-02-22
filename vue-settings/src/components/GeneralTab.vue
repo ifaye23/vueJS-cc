@@ -26,15 +26,15 @@
             <span>Type</span>
             <div>
               <div class="space-x-2">
-                <input type="radio" name="type" v-model="general.type" />
+                <input type="radio" value="rbot" name="type" v-model="general.type" />
                 <label>Regular Bot</label>
               </div>
               <div class="space-x-2">
-                <input type="radio" name="type" />
+                <input type="radio" value="aseeker" name="type" v-model="general.type" />
                 <label>Armed Seeker</label>
               </div>
               <div class="space-x-2">
-                <input type="radio" name="type" />
+                <input type="radio" value="tchanger" name="type" v-model="general.type" />
                 <label>Triple Changer</label>
               </div>
             </div>
