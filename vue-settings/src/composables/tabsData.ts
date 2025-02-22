@@ -19,36 +19,58 @@ interface PrivacyData {
     visibility : 'Private' | 'Public'
 }
 
-const general = ref<GeneralData>(
-    (() => {
-        const stored = localStorage.getItem('general');
+interface DataMaps {
+    general: GeneralData,
+    notifs: NotifsData,
+    privacy: PrivacyData
+}
 
-        return stored !== null
-        ? JSON.parse(stored)
-        : {
-            id: '',
-            email: '',
-            log: 'Resident of Iacon',
-            type: 'rbot',
-            faction: 'Civilian'
-            };
-    })()
+type keyMaps = keyof DataMaps
+
+const initData = <T extends keyMaps>(key : T, defaults: DataMaps[T]) => {
+    const stored = localStorage.getItem(key);
+
+    return stored !== null
+    ? JSON.parse(stored)
+    : defaults
+}
+
+const watcher = <T extends keyMaps>(key : T) => {
+    return (value : DataMaps[T]) => {
+        localStorage.setItem(key, JSON.stringify(value))
+    }
+}
+
+const general = ref<GeneralData>(
+        initData('general', {
+        id: '',
+        email:'',
+        log:'Resident of Iacon',
+        type: 'rbot',
+        faction: 'Civilian'
+    })
 )
 
-watch(general, (value) => {
-    localStorage.setItem('general', JSON.stringify(value))
-}, {deep: true})
+watch(general, watcher('general'), {deep: true})
 
-const notifs = ref<NotifsData>({
+const notifs = ref<NotifsData>(
+    initData('notifs', {
     symlink: true,
     nreceptors: false,
     cog: false
-})
+    })
+)
 
-const privacy = ref<PrivacyData>({
+watch(notifs, watcher('notifs'), {deep: true})
+
+const privacy = ref<PrivacyData>(
+    initData('privacy',{
     SearchEngineIndexing: false,
     visibility : 'Private'
-})
+    })
+)
+
+watch(privacy, watcher('privacy'), {deep: true})
 
 export default  function tabsData() {
     return {
