@@ -51,8 +51,6 @@ const general = ref<GeneralData>(
     })
 )
 
-watch(general, watcher('general'), {deep: true})
-
 const notifs = ref<NotifsData>(
     initData('notifs', {
     symlink: true,

@@ -3,7 +3,7 @@
     <BorderedSection>
       <template #title>Privacy</template>
       <template #content>
-        <form>
+        <form @submit.prevent="addNotification('Privacy settings updated')">
           <div>
             <input type="checkbox" v-model="privacy.SearchEngineIndexing" />
             <label>SearchEngine Indexing</label>
@@ -28,6 +28,9 @@
 import BorderedSection from '@/components/BorderedSection.vue';
 import tabsData from '@/composables/tabsData';
 import SubmitButton from '@/components/SubmitButton.vue';
+import notifsHandler from '@/composables/notifsHandler';
+
+const { addNotification } = notifsHandler();
 
 const { privacy } = tabsData();
 </script>

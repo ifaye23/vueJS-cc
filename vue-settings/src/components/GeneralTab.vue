@@ -3,7 +3,10 @@
     <BorderedSection>
       <template #title>General</template>
       <template #content>
-        <form class="flex flex-col gap-5">
+        <form
+          class="flex flex-col gap-5"
+          @submit.prevent="addNotification('The data has been saved')"
+        >
           <div class="f-input">
             <label>Identificator</label>
             <input placeholder="D-16 Megatronus" type="text" ref="id" v-model="general.id" />
@@ -55,6 +58,7 @@
         </form></template
       >
     </BorderedSection>
+    <NotifPanel></NotifPanel>
   </div>
 </template>
 
@@ -63,8 +67,11 @@ import { onMounted, ref } from 'vue';
 import tabsData from '@/composables/tabsData';
 import BorderedSection from '@/components/BorderedSection.vue';
 import SubmitButton from '@/components/SubmitButton.vue';
+import notifsHandler from '@/composables/notifsHandler';
+import NotifPanel from '@/components/NotifPanel.vue';
 
 const { general } = tabsData();
+const { addNotification } = notifsHandler();
 
 const id = ref<HTMLInputElement | null>(null);
 
