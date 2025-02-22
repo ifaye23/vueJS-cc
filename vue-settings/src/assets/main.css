@@ -15,6 +15,18 @@ input[type='radio'] {
   @apply accent-neutral-600;
 }
 
+input[type='checkbox'] {
+  @apply mr-2.5 accent-neutral-600;
+}
+
+select {
+  @apply bg-neutral-800 p-2.5 rounded-sm;
+}
+
+button[type='submit'] {
+  @apply min-w-[100px] bg-neutral-800 rounded-sm p-2 text-center border-2 border-transparent hover:border-neutral-300 mt-3 transition-all hover:bg-neutral-600 hover:font-bold;
+}
+
 .f-input {
   @apply flex flex-col gap-1.5;
 }

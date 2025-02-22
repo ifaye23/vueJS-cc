@@ -2,7 +2,9 @@
   <Navbar />
   <section>
     <FadeTransition>
-      <component :is="currentComponent" />
+      <KeepAlive>
+        <component :is="currentComponent" />
+      </KeepAlive>
     </FadeTransition>
   </section>
 </template>
