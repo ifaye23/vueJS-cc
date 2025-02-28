@@ -23,5 +23,9 @@ export const useRecipeStore = defineStore('recipe', ()  => {
         return recipe
     }
 
-    return { recipes, addRecipe }
+    const getRecipeById = (id : string) => recipes.value.find(
+        (recipe) => recipe.id === id
+    )
+
+    return { recipes, addRecipe, getRecipeById }
 });
