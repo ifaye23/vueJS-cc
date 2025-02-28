@@ -27,5 +27,9 @@ export const useRecipeStore = defineStore('recipe', ()  => {
         (recipe) => recipe.id === id
     )
 
-    return { recipes, addRecipe, getRecipeById }
+    const filterRecipes = (searchQuery : string) => recipes.value.filter(
+        (recipe) => recipe.name.toLowerCase().includes(searchQuery.toLocaleLowerCase())
+    )
+
+    return { recipes, addRecipe, getRecipeById, filterRecipes }
 });
