@@ -1,19 +1,17 @@
-import type { PiniaPluginContext } from 'pinia'
+import type { PiniaPluginContext } from 'pinia';
 
-const localSynchroPlugin = (context : PiniaPluginContext) => {
-    const { store } = context;
+const localSynchroPlugin = (context: PiniaPluginContext) => {
+  const { store } = context;
 
-    const storedState = localStorage.getItem(
-        store.$id
-    )
+  const storedState = localStorage.getItem(store.$id);
 
-    if (storedState){
-        store.$patch(JSON.parse(storedState))
-    }
+  if (storedState) {
+    store.$patch(JSON.parse(storedState));
+  }
 
-    store.$subscribe((mutation, state) => {
-        localStorage.setItem(mutation.storeId, JSON.stringify(state))
-    })
-}   
+  store.$subscribe((mutation, state) => {
+    localStorage.setItem(mutation.storeId, JSON.stringify(state));
+  });
+};
 
-export default localSynchroPlugin
+export default localSynchroPlugin;

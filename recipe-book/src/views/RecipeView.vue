@@ -1,17 +1,23 @@
 <template>
   <div>
-    Recipe {{ $route.params.id }}
     <h2>Recipe : {{ recipe?.name }}</h2>
+    Recipe {{ $route.params.id }}
     <p>desc : {{ recipe?.description }}</p>
+    <button
+      name="favoriteCheck"
+      id="favoriteCheck"
+      v-if="recipe"
+      @click="toggleFavorite(recipe.id)"
+    >
+      {{ isFavorite ? 'Remove from favorites' : 'Add to favorites' }}
+    </button>
   </div>
   <nav>
     <ul>
-      <li>
-        <RouterLink :to="{ name: 'recipe', params: { id: 1 } }">Recipe 1</RouterLink>
-      </li>
-
-      <li>
-        <RouterLink :to="{ name: 'recipe', params: { id: 3 } }">Recipe 3</RouterLink>
+      <li v-for="otherRecipe in recipes.filter((r) => r.id !== recipe?.id)">
+        <RouterLink :to="{ name: 'recipe', params: { id: otherRecipe.id } }">{{
+          otherRecipe.name
+        }}</RouterLink>
       </li>
     </ul>
   </nav>
@@ -20,7 +26,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { useRecipeStore } from '@/stores/recipe';
-import { computed } from 'vue';
+import { computed, ref, toValue } from 'vue';
 
 const route = useRoute();
 const store = useRecipeStore();
@@ -36,4 +42,7 @@ const store = useRecipeStore();
 // );
 
 const recipe = computed(() => store.getRecipeById(route.params.id as string));
+const recipes = store.recipes;
+const toggleFavorite = store.toggleFavorite;
+const isFavorite = computed(() => (recipe.value ? store.isFavorite(recipe.value.id) : false));
 </script>

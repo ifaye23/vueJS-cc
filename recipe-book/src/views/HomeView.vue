@@ -8,7 +8,7 @@
       <nav>
         <ul>
           <li v-for="recipe in filteredRecipes" :key="recipe.id">
-            <RouterLink :to="{ name: 'recipe', params: { id: 1 } }">
+            <RouterLink :to="{ name: 'recipe', params: { id: recipe.id } }">
               {{ recipe.name }}
             </RouterLink>
           </li>
